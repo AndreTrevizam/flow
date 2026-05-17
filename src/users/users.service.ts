@@ -30,7 +30,6 @@ export class UsersService {
     const encryptedPassword = await hash(data.password, 10);
     const user = await this.prismaService.user.create({
       data: {
-        id: crypto.randomUUID(),
         ...data,
         password: encryptedPassword,
       },

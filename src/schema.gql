@@ -6,6 +6,39 @@ type AuthResponse {
   token: String!
 }
 
+type Board {
+  columns: [Column!]!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  users: [User!]!
+}
+
+type Column {
+  boardId: String!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  position: Float!
+  tasks: [Task!]!
+  updatedAt: DateTime!
+}
+
+input CreateBoardInput {
+  name: String!
+}
+
+input CreateColumnInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateTaskInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
@@ -23,13 +56,56 @@ input LoginInput {
 }
 
 type Mutation {
+  createBoard(createBoardInput: CreateBoardInput!): Board!
+  createColumn(createColumnInput: CreateColumnInput!): Column!
+  createTask(createTaskInput: CreateTaskInput!): Task!
   createUser(createUserInput: CreateUserInput!): User!
   login(loginInput: LoginInput!): AuthResponse!
+  removeBoard(id: Int!): Board!
+  removeColumn(id: Int!): Column!
+  removeTask(id: Int!): Task!
+  updateBoard(updateBoardInput: UpdateBoardInput!): Board!
+  updateColumn(updateColumnInput: UpdateColumnInput!): Column!
+  updateTask(updateTaskInput: UpdateTaskInput!): Task!
 }
 
 type Query {
+  board(id: Int!): Board!
+  boards: [Board!]!
+  column(id: Int!): Column!
+  columns: [Column!]!
+  task(id: Int!): Task!
+  tasks: [Task!]!
   user(userId: String!): User!
   users: [User!]!
+}
+
+type Task {
+  columnId: String!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  name: String!
+  position: Float!
+  updatedAt: DateTime!
+  userId: String!
+}
+
+input UpdateBoardInput {
+  id: Int!
+  name: String
+}
+
+input UpdateColumnInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateTaskInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 type User {
