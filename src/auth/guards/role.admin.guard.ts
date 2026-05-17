@@ -23,7 +23,6 @@ export class RolesGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const ctx = GqlExecutionContext.create(context);
     const roles = this.reflector.get(Roles, context.getHandler());
-    console.log(roles);
     const headers = ctx.getContext<GqlContext>().req.headers;
 
     if (!headers.authorization) {

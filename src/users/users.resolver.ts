@@ -18,6 +18,12 @@ export class UsersResolver {
     return this.usersService.findAll();
   }
 
+  @Query(() => User, { name: 'user' })
+  @UseGuards(AuthGuard)
+  findUnique(@Args('userId') id: string) {
+    return this.usersService.findUnique(id);
+  }
+
   @Mutation(() => User)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
